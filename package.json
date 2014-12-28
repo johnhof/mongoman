@@ -1,0 +1,30 @@
+{
+  "name": "Mongoman",
+  "description": "Mongo management utility",
+  "version": "0.1.0",
+  "repository": "git://github.com/johnhof/Mongoman",
+  "main": "mongoman.js",
+  "keywords": [
+    "schema",
+    "validation",
+    "mongo",
+    "mongodb",
+    "mongoose"
+  ],
+  "engines": {
+    "node": ">=0.8.0"
+  },
+  "dependencies": {
+    "lodash": "^2.4.x",
+    "mongoose": "^3.8.x",
+    "mongoose-validator": "^1.0.x",
+  },
+  "scripts": {
+      "test" : "./node_modules/.bin/mocha --reporter spec"
+    },
+  "licenses": [],
+  "devDependencies": {
+    "chai": "^1.10.0",
+    "mocha": "1.21.x"
+  }
+}
