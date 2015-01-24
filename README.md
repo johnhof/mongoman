@@ -9,12 +9,9 @@ TODO
 validation functions based on joi
 
 * ~~array.sparse(enabled)~~ - not tested
-* array.includes(type)
-* array.excludes(type)
 * ~~array.min(limit)~~ - not tested
 * ~~array.max(limit)~~ - not tested
 * ~~array.length(limit)~~ - not tested
-* array.unique()
 
 * ~~binary.encoding(encoding)~~ - not tested
 * ~~binary.min(limit)~~ - not tested
@@ -30,23 +27,9 @@ validation functions based on joi
 * ~~number.less(limit)~~ - not tested
 * ~~number.integer()~~ - not tested
 
-* object.keys([schema])
 * ~~object.min(limit)~~ - not tested
 * ~~object.max(limit)~~ - not tested
 * ~~object.length(limit)~~ - not tested
-* object.pattern(regex, schema)
-* object.and(peers)
-* object.nand(peers)
-* object.or(peers)
-* object.xor(peers)
-* object.with(key, peers)
-* object.without(key, peers)
-* object.rename(from, to, [options])
-* object.assert(ref, schema, [message])
-* object.unknown([allow])
-* object.type(constructor, [name])
-* object.requiredKeys(children)
-* object.optionalKeys(children)
 
 * ~~string.min(limit, [encoding])~~ - not tested
 * ~~string.max(limit, [encoding])~~ - not tested
@@ -66,3 +49,20 @@ Consider
 * date.format(format)
 * date.iso()
 * number.precision(limit)
+* array.includes(type)
+* array.excludes(type)
+* array.unique()
+* object.keys([schema])
+* object.pattern(regex, schema)
+* object.and(peers)
+* object.nand(peers)
+* object.or(peers)
+* object.xor(peers)
+* object.with(key, peers)
+* object.without(key, peers)
+* object.rename(from, to, [options])
+* object.assert(ref, schema, [message])
+* object.unknown([allow])
+* object.type(constructor, [name])
+* object.requiredKeys(children)
+* object.optionalKeys(children)

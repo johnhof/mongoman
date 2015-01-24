@@ -61,7 +61,6 @@ describe('Validation', function () {
         // if (error) throw error;
         console.log(arguments);
 
-        done();
       });
     });
   });
