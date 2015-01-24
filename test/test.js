@@ -19,8 +19,8 @@ describe('Validation', function () {
   describe('Array', function () {
     var ArrayModel =  man.register('ArrayModel', {
       // sparse
-      allowSparse  : man('Sparse Prop').required().array().sparse(),
-      rejectSparse : man('Reject Sparse Prop').required().array().sparse(false),
+      allowSparse  : man('Sparse Prop').required().array().sparse().fin(),
+      rejectSparse : man('Reject Sparse Prop').required().array().sparse(false).fin(),
     });
 
 
@@ -44,9 +44,9 @@ describe('Validation', function () {
   describe('String', function () {
     var StringModel =  man.register('StringModel', {
       // lengths
-      minStr : man('Min Prop').required().string().min(5),
-      maxStr : man('Max Prop').required().string().max(10),
-      lenStr : man('Len Prop').required().string().length(3),
+      minStr : man('Min Prop').required().string().min(5).fin(),
+      maxStr : man('Max Prop').required().string().max(10).fin(),
+      lenStr : man('Len Prop').required().string().length(3).fin(),
     });
 
 
