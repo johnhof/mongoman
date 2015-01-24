@@ -8,10 +8,10 @@ A node utility to simplify model and schema management
 # Key
 
 - [Usage](#usage)
-- [General Utilities](#generalutilities)
-    - [`prop.set(key, value)`](#propsetkeyvalue)
-    - [`prop.validate(errorMsg, valFunction)`](#propvalidateerrormsgvalfunction)
-    - [`prop.index(key, value)`](#propindexkeyvalue)
+- [General Utilities](#general-utilities)
+    - [`prop.set(key, value)`](#propsetkey-value)
+    - [`prop.validate(errorMsg, valFunction)`](#propvalidateerrormsg-valfunction)
+    - [`prop.index(key, value)`](#propindexkey-value)
 - [Types](#types)
     - [`prop.string()`](#propstring)
     - [`prop.date()`](#propdate)
@@ -21,10 +21,10 @@ A node utility to simplify model and schema management
     - [`prop.objectId()`](#propobjectid)
     - [`prop.array()`](#proparray)
 - [Validation](#validation)
-    - [Multi Purpose](#multipurpose)
+    - [Shared](#shared)
         - [`prop.required()`](#proprequired)
         - [`prop.default(value)`](#propdefaultvalue)
-        - [`prop.enum(values, [message])`](#propenumvaluesmessage)
+        - [`prop.enum(values, [message])`](#propenumvalues-message)
         - [`prop.unique([bool])`](#propuniquebool)
         - [`prop.min(value)`](#propminvalue)
         - [`prop.max(value)`](#propmaxvalue)
@@ -37,7 +37,7 @@ A node utility to simplify model and schema management
 
 # Usage
 
-
+TODO: add basic usage including config setup
 
 
 # General Utilities
@@ -157,7 +157,7 @@ Set property type to be `Array`
 any time `[]` is a function parameted, its is optional. anytime `[message]` is included, a default message will be used unless this parameter is set
 
 
-## Multi Purpose
+## Shared
 
 
 
