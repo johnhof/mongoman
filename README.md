@@ -35,12 +35,12 @@ A node utility to simplify model and schema management
 
 
 
+# Usage
 
 
 
 
-
-## General Utilities
+# General Utilities
 
 If a property or validation isn't included as a supported chainable function, you can easily include any missing values using the following functions
 
@@ -82,7 +82,7 @@ Bind the key and value to the index adttribute of the property
 
 
 
-## Types
+# Types
 
 
 
