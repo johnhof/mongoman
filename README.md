@@ -39,6 +39,10 @@ A node utility to simplify model and schema management
         - [`prop.guid([message])`](#propguidlmessage)
         - [`prop.uppercase([message])`](#propguidlmessage)
         - [`prop.lowercase([message])`](#lowercase)
+    - [Strings](#strings)
+        - [`prop.greater(limit, [message])`](#propgreaterlimit-message)
+        - [`prop.less(limit, [message])`](#proplesslimit-message)
+        - [`prop.integer([message])`](#propintegermessage)
 - [Utilities](#utilities)
 
 
@@ -330,23 +334,42 @@ return an error if the string is not lowercase
 
 
 
-
-
-# NOTHING BELOW THIS LINE IS TESTED
-
-
-
-## Objects
-
-## Binary
-
 ## Numbers
 
 
 
 
 
+### `prop.greater(limit, [message])`
 
+return an error if the number is above the limit
+
+```javascript
+  schema.newProp = mon().number().greater(5).fin();
+```
+
+### `prop.less(limit, [message])`
+
+return an error if the number is below the limit
+
+```javascript
+  schema.newProp = mon().string().less(5).fin();
+```
+
+### `prop.integer([message])`
+
+return an error if the string is not an integer
+
+```javascript
+  schema.newProp = mon().string().integer().fin();
+```
+
+
+
+
+
+
+# NOTHING BELOW THIS LINE IS TESTED
 
 
 
@@ -365,30 +388,11 @@ return an error if the string is not lowercase
 TODO
 ====
 
-add custom messaging
-
 general
 
 register
 new
 save
-
-validation functions based on joi
-
-* ~~binary.encoding(encoding)~~ - not tested
-
-* ~~number.greater(limit)~~ - not tested
-* ~~number.less(limit)~~ - not tested
-* ~~number.integer()~~ - not tested
-
-* ~~string.regex(pattern, [name])~~ - not tested
-* ~~string.alphanum()~~ - not tested
-* ~~string.token()~~ - not tested
-* ~~string.email()~~ - not tested
-* ~~string.guid()~~ - not tested
-* ~~string.hostname()~~ - not tested
-* ~~string.lowercase()~~ - not tested
-* ~~string.uppercase()~~ - not tested
 
 Consider
 ========

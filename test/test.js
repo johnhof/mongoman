@@ -608,9 +608,110 @@ describe('Property Builder', function () {
           done();
         });
       });
-    }); // END - hostname
-
+    }); // END - lowercase
   }); // END - string
 
 
-});
+  //
+  // Number attributes
+  //
+
+
+  describe('Number Attributes', function () {
+
+    //
+    // Greater
+    //
+    describe('Greater', function () {
+      var passes    = 10;
+      var fails     = 5;
+      var breakPt   = 7
+      var modelName = 'greaterModel';
+
+      mon.register(modelName, {
+        prop : mon().number().greater(breakPt).fin()
+      });
+
+      // pass
+      it('should allow number greater than ' + breakPt, function (done) {
+        var model = mon.new(modelName, { prop : passes });
+        model.save(function (error, result) {
+          expect(error).to.equal(null);
+          done();
+        });
+      });
+
+      // fail
+      it('should reject number less than or equal to ' + breakPt, function (done) {
+        var model = mon.new(modelName, { prop : fails });
+        model.save(function (error, result) {
+          expect(findValue(error, 'errors.prop.message')).to.contain('must be greater than');
+          done();
+        });
+      });
+    }); // END - greater
+
+    //
+    // Less
+    //
+    describe('Less', function () {
+      var passes    = 5;
+      var fails     = 10;
+      var breakPt   = 7
+      var modelName = 'lessModel';
+
+      mon.register(modelName, {
+        prop : mon().number().less(breakPt).fin()
+      });
+
+      // pass
+      it('should allow number less than ' + breakPt, function (done) {
+        var model = mon.new(modelName, { prop : passes });
+        model.save(function (error, result) {
+          expect(error).to.equal(null);
+          done();
+        });
+      });
+
+      // fail
+      it('should reject number greater than or equal to ' + breakPt, function (done) {
+        var model = mon.new(modelName, { prop : fails });
+        model.save(function (error, result) {
+          expect(findValue(error, 'errors.prop.message')).to.contain('must be less than');
+          done();
+        });
+      });
+    }); // END - greater
+
+    //
+    // Integer
+    //
+    describe('Integer', function () {
+      var passes    = 5;
+      var fails     = 5.555;
+      var modelName = 'intModel';
+
+      mon.register(modelName, {
+        prop : mon().number().integer().fin()
+      });
+
+      // pass
+      it('should allow integers', function (done) {
+        var model = mon.new(modelName, { prop : passes });
+        model.save(function (error, result) {
+          expect(error).to.equal(null);
+          done();
+        });
+      });
+
+      // fail
+      it('should reject floating point numbers', function (done) {
+        var model = mon.new(modelName, { prop : fails });
+        model.save(function (error, result) {
+          expect(findValue(error, 'errors.prop.message')).to.contain('must be an integer');
+          done();
+        });
+      });
+    }); // END - integer
+  }); // END - number
+});// END - validation
