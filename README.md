@@ -29,6 +29,16 @@ A node utility to simplify model and schema management
         - [`prop.min(value, [message])`](#propminvalue-message)
         - [`prop.max(value, [message])`](#propmaxvalue-message)
         - [`prop.length(value)`](#proplengthvalue)
+    - [Arrays](#arrays)
+        - [`prop.array().sparse([enables])`](#propsparseenabled)
+    - [Strings](#strings)
+        - [`prop.alphanum([message])`](#propalphanummessage)
+        - [`prop.regex(expression, [message])`](#propregexexpression-message)
+        - [`prop.email([message])`](#propemailmessage)
+        - [`prop.token([message])`](#proptokenmessage)
+        - [`prop.guid([message])`](#propguidlmessage)
+        - [`prop.uppercase([message])`](#propguidlmessage)
+        - [`prop.lowercase([message])`](#lowercase)
 - [Utilities](#utilities)
 
 
@@ -157,6 +167,8 @@ Set property type to be `Array`
 any time `[]` is a function parameted, its is optional. anytime `[message]` is included, a default message will be used unless this parameter is set
 
 
+
+
 ## Shared
 
 
@@ -237,8 +249,20 @@ Check that the value being saved is the same length as the value passed into the
 
 
 
+## Arrays
 
-# NOTHING BELOW THIS LINE IS TESTED
+
+
+
+### `prop.sparse()`
+
+return an error if the array contains undefined values
+
+```javascript
+  schema.newProp = mon().array().sparse().fin();
+```
+
+
 
 
 ## Strings
@@ -247,8 +271,70 @@ Check that the value being saved is the same length as the value passed into the
 
 
 
+### `prop.alphanum([message])`
 
-## Arrays
+return an error if the string contains non alpha-numeric values
+
+```javascript
+  schema.newProp = mon().string().alphanum().fin();
+```
+
+### `prop.regex(expression, [message])`
+
+return an error if the string does not match the expression
+
+```javascript
+  schema.newProp = mon().string().regex(expression).fin();
+```
+
+### `prop.email([message])`
+
+return an error if the string is not a valid email address
+
+```javascript
+  schema.newProp = mon().string().email().fin();
+```
+
+### `prop.token([message])`
+
+return an error if the string is not a valid token
+
+```javascript
+  schema.newProp = mon().string().token().fin();
+```
+
+### `prop.guid([message])`
+
+return an error if the string is not a valid GUID
+
+```javascript
+  schema.newProp = mon().string().guid().fin();
+```
+
+### `prop.uppercase([message])`
+
+return an error if the string is not uppercase
+
+```javascript
+  schema.newProp = mon().string().uppercase().fin();
+```
+
+### `prop.lowercase([message])`
+
+return an error if the string is not lowercase
+
+```javascript
+  schema.newProp = mon().string().lowercase().fin();
+```
+
+
+
+
+
+
+# NOTHING BELOW THIS LINE IS TESTED
+
+
 
 ## Objects
 
@@ -288,8 +374,6 @@ new
 save
 
 validation functions based on joi
-
-* ~~array.sparse(enabled)~~ - not tested
 
 * ~~binary.encoding(encoding)~~ - not tested
 
