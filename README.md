@@ -3,7 +3,7 @@ Mongoman
 
 A node utility to simplify model and schema management
 
-# Do not use this. I'm in the process of writing test to make sure everything is hunky-dory. check back in a week
+# Do not use this. I'm in the process of writing tests to make sure everything is hunky-dory. check back in a week
 
 # Key
 
@@ -40,16 +40,25 @@ A node utility to simplify model and schema management
             - [`prop.guid([message])`](#propguidlmessage)
             - [`prop.uppercase([message])`](#propguidlmessage)
             - [`prop.lowercase([message])`](#lowercase)
-        - [Strings](#strings)
+        - [Numbers](#numbers)
             - [`prop.greater(limit, [message])`](#propgreaterlimit-message)
             - [`prop.less(limit, [message])`](#proplesslimit-message)
             - [`prop.integer([message])`](#propintegermessage)
+- [Utilities](#utilities)
+
+
+
 
 
 
 # Usage
 
 TODO: add basic usage including config setup
+
+
+
+
+
 
 
 # Property Builder
@@ -385,6 +394,29 @@ return an error if the string is not an integer
 
 
 
+
+
+
+
+
+# Utilities
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 TODO
 ====
 
@@ -393,28 +425,3 @@ general docs/tests
 register
 new
 save
-
-Consider
-========
-
-* string.trim()
-* date.format(format)
-* date.iso()
-* number.precision(limit)
-* array.includes(type)
-* array.excludes(type)
-* array.unique()
-* object.keys([schema])
-* object.pattern(regex, schema)
-* object.and(peers)
-* object.nand(peers)
-* object.or(peers)
-* object.xor(peers)
-* object.with(key, peers)
-* object.without(key, peers)
-* object.rename(from, to, [options])
-* object.assert(ref, schema, [message])
-* object.unknown([allow])
-* object.type(constructor, [name])
-* object.requiredKeys(children)
-* object.optionalKeys(children)

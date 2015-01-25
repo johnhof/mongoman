@@ -1,5 +1,4 @@
 var mon    = require(process.cwd());
-var bcrypt = require('bcrypt-nodejs');
 var mocha  = require('mocha');
 var chai   = require('chai');
 var db     = mon.connect();
@@ -11,10 +10,6 @@ var expect = chai.expect;
 // Test prep
 //
 /////////////////////////////////////////////////////////////////////////////////
-
-function toString (obj) {
-  return JSON.stringify(obj, null, '  ');
-}
 
 function findValue (obj, namespace) {
   if (!obj) { return undefined; }
