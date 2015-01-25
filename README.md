@@ -26,9 +26,23 @@ A node utility to simplify model and schema management
         - [`prop.default(value)`](#propdefaultvalue)
         - [`prop.enum(values, [message])`](#propenumvalues-message)
         - [`prop.unique([bool])`](#propuniquebool)
-        - [`prop.min(value)`](#propminvalue)
-        - [`prop.max(value)`](#propmaxvalue)
+        - [`prop.min(value, [message])`](#propminvalue-message)
+        - [`prop.max(value, [message])`](#propmaxvalue-message)
         - [`prop.length(value)`](#proplengthvalue)
+    - [Arrays](#arrays)
+        - [`prop.array().sparse([enables])`](#propsparseenabled)
+    - [Strings](#strings)
+        - [`prop.alphanum([message])`](#propalphanummessage)
+        - [`prop.regex(expression, [message])`](#propregexexpression-message)
+        - [`prop.email([message])`](#propemailmessage)
+        - [`prop.token([message])`](#proptokenmessage)
+        - [`prop.guid([message])`](#propguidlmessage)
+        - [`prop.uppercase([message])`](#propguidlmessage)
+        - [`prop.lowercase([message])`](#lowercase)
+    - [Strings](#strings)
+        - [`prop.greater(limit, [message])`](#propgreaterlimit-message)
+        - [`prop.less(limit, [message])`](#proplesslimit-message)
+        - [`prop.integer([message])`](#propintegermessage)
 - [Utilities](#utilities)
 
 
@@ -157,6 +171,8 @@ Set property type to be `Array`
 any time `[]` is a function parameted, its is optional. anytime `[message]` is included, a default message will be used unless this parameter is set
 
 
+
+
 ## Shared
 
 
@@ -204,7 +220,7 @@ Insures a unique index is generated for the path. defaults to true. False causes
   schema.newProp = mon().unique().fin();
 ```
 
-### `prop.min(value)`
+### `prop.min(value, [message])`
 
 type: `string` (length), `array` (length), `number` (value), `date` (value), `object` (keys), `buffer` (length)
 
@@ -214,7 +230,7 @@ Check that the value being saved is greater than or equal to the value passed in
   schema.newProp = mon().min(5).fin();
 ```
 
-### `prop.max(value)`
+### `prop.max(value, [message])`
 
 type: `string` (length), `array` (length), `number` (value), `date` (value), `object` (keys), `buffer` (length)
 
@@ -224,7 +240,7 @@ Check that the value being saved is less than or equal to the value passed into 
   schema.newProp = mon().max(5).fin();
 ```
 
-### `prop.length(value)`
+### `prop.length(value, [message])`
 
 type: `string` (length), `array` (length), `object` (keys), `buffer` (length)
 
@@ -237,8 +253,20 @@ Check that the value being saved is the same length as the value passed into the
 
 
 
+## Arrays
 
-# NOTHING BELOW THIS LINE IS TESTED
+
+
+
+### `prop.sparse()`
+
+return an error if the array contains undefined values
+
+```javascript
+  schema.newProp = mon().array().sparse().fin();
+```
+
+
 
 
 ## Strings
@@ -247,12 +275,64 @@ Check that the value being saved is the same length as the value passed into the
 
 
 
+### `prop.alphanum([message])`
 
-## Arrays
+return an error if the string contains non alpha-numeric values
 
-## Objects
+```javascript
+  schema.newProp = mon().string().alphanum().fin();
+```
 
-## Binary
+### `prop.regex(expression, [message])`
+
+return an error if the string does not match the expression
+
+```javascript
+  schema.newProp = mon().string().regex(expression).fin();
+```
+
+### `prop.email([message])`
+
+return an error if the string is not a valid email address
+
+```javascript
+  schema.newProp = mon().string().email().fin();
+```
+
+### `prop.token([message])`
+
+return an error if the string is not a valid token
+
+```javascript
+  schema.newProp = mon().string().token().fin();
+```
+
+### `prop.guid([message])`
+
+return an error if the string is not a valid GUID
+
+```javascript
+  schema.newProp = mon().string().guid().fin();
+```
+
+### `prop.uppercase([message])`
+
+return an error if the string is not uppercase
+
+```javascript
+  schema.newProp = mon().string().uppercase().fin();
+```
+
+### `prop.lowercase([message])`
+
+return an error if the string is not lowercase
+
+```javascript
+  schema.newProp = mon().string().lowercase().fin();
+```
+
+
+
 
 ## Numbers
 
@@ -260,7 +340,36 @@ Check that the value being saved is the same length as the value passed into the
 
 
 
+### `prop.greater(limit, [message])`
 
+return an error if the number is above the limit
+
+```javascript
+  schema.newProp = mon().number().greater(5).fin();
+```
+
+### `prop.less(limit, [message])`
+
+return an error if the number is below the limit
+
+```javascript
+  schema.newProp = mon().string().less(5).fin();
+```
+
+### `prop.integer([message])`
+
+return an error if the string is not an integer
+
+```javascript
+  schema.newProp = mon().string().integer().fin();
+```
+
+
+
+
+
+
+# NOTHING BELOW THIS LINE IS TESTED
 
 
 
@@ -279,31 +388,11 @@ Check that the value being saved is the same length as the value passed into the
 TODO
 ====
 
-
 general
 
 register
 new
 save
-
-validation functions based on joi
-
-* ~~array.sparse(enabled)~~ - not tested
-
-* ~~binary.encoding(encoding)~~ - not tested
-
-* ~~number.greater(limit)~~ - not tested
-* ~~number.less(limit)~~ - not tested
-* ~~number.integer()~~ - not tested
-
-* ~~string.regex(pattern, [name])~~ - not tested
-* ~~string.alphanum()~~ - not tested
-* ~~string.token()~~ - not tested
-* ~~string.email()~~ - not tested
-* ~~string.guid()~~ - not tested
-* ~~string.hostname()~~ - not tested
-* ~~string.lowercase()~~ - not tested
-* ~~string.uppercase()~~ - not tested
 
 Consider
 ========
