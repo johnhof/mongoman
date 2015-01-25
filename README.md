@@ -26,8 +26,8 @@ A node utility to simplify model and schema management
         - [`prop.default(value)`](#propdefaultvalue)
         - [`prop.enum(values, [message])`](#propenumvalues-message)
         - [`prop.unique([bool])`](#propuniquebool)
-        - [`prop.min(value)`](#propminvalue)
-        - [`prop.max(value)`](#propmaxvalue)
+        - [`prop.min(value, [message])`](#propminvalue-message)
+        - [`prop.max(value, [message])`](#propmaxvalue-message)
         - [`prop.length(value)`](#proplengthvalue)
 - [Utilities](#utilities)
 
@@ -204,7 +204,7 @@ Insures a unique index is generated for the path. defaults to true. False causes
   schema.newProp = mon().unique().fin();
 ```
 
-### `prop.min(value)`
+### `prop.min(value, [message])`
 
 type: `string` (length), `array` (length), `number` (value), `date` (value), `object` (keys), `buffer` (length)
 
@@ -214,7 +214,7 @@ Check that the value being saved is greater than or equal to the value passed in
   schema.newProp = mon().min(5).fin();
 ```
 
-### `prop.max(value)`
+### `prop.max(value, [message])`
 
 type: `string` (length), `array` (length), `number` (value), `date` (value), `object` (keys), `buffer` (length)
 
@@ -224,7 +224,7 @@ Check that the value being saved is less than or equal to the value passed into 
   schema.newProp = mon().max(5).fin();
 ```
 
-### `prop.length(value)`
+### `prop.length(value, [message])`
 
 type: `string` (length), `array` (length), `object` (keys), `buffer` (length)
 
@@ -279,6 +279,7 @@ Check that the value being saved is the same length as the value passed into the
 TODO
 ====
 
+add custom messaging
 
 general
 

@@ -36,11 +36,11 @@ describe('Property Builder', function () {
 
 
   //
-  // Universal
+  // Shared attributes
   //
 
 
-  describe('Universal Attributes', function () {
+  describe('Shared Attributes', function () {
 
     //
     // Required
@@ -309,17 +309,49 @@ describe('Property Builder', function () {
         });
       });
     }); // END - Length
+  }); // END - Shared attributes
 
 
 
+  //
+  // Array attributes
+  //
 
 
 
-  }); // END - universal attributes
+  describe('Array Attributes', function () {
 
+    //
+    // Required
+    //
+    describe('Sparse', function () {
+      var notSparse = ['foo', 'bar'];
+      var isSparse  = ['foo', undefined, 'bar'];
+      var modelName = 'sparseModel';
 
+      mon.register(modelName, {
+        prop : mon().sparse().array().fin()
+      });
 
+      // pass
+      it('should allow non-sparse arrays', function (done) {
+        var model = mon.new(modelName, { prop : notSparse });
+        model.save(function (error, result) {
+          expect(error).to.equal(null);
+          done();
+        });
+      });
 
+      // fail
+      it('should reject sparse arrays', function (done) {
+        var model = mon.new(modelName, { prop : isSparse });
+        model.save(function (error, result) {
+          expect(findValue(error, 'errors.prop.message')).to.contain('undefined values not allowed');
+          done();
+        });
+      });
+    }); // END - sparese
+  }); // END - array
 
 
 });
