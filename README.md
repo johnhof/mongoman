@@ -8,44 +8,42 @@ A node utility to simplify model and schema management
 # Key
 
 - [Usage](#usage)
-- [General Utilities](#general-utilities)
-    - [`prop.set(key, value)`](#propsetkey-value)
-    - [`prop.validate(errorMsg, valFunction)`](#propvalidateerrormsg-valfunction)
-    - [`prop.index(key, value)`](#propindexkey-value)
-- [Types](#types)
-    - [`prop.string()`](#propstring)
-    - [`prop.date()`](#propdate)
-    - [`prop.number()`](#propnumber)
-    - [`prop.buffer()`](#propbuffer)
-    - [`prop.mixed()`](#propmixed)
-    - [`prop.objectId()`](#propobjectid)
-    - [`prop.array()`](#proparray)
-- [Validation](#validation)
-    - [Shared](#shared)
-        - [`prop.required()`](#proprequired)
-        - [`prop.default(value)`](#propdefaultvalue)
-        - [`prop.enum(values, [message])`](#propenumvalues-message)
-        - [`prop.unique([bool])`](#propuniquebool)
-        - [`prop.min(value, [message])`](#propminvalue-message)
-        - [`prop.max(value, [message])`](#propmaxvalue-message)
-        - [`prop.length(value)`](#proplengthvalue)
-    - [Arrays](#arrays)
-        - [`prop.array().sparse([enables])`](#propsparseenabled)
-    - [Strings](#strings)
-        - [`prop.alphanum([message])`](#propalphanummessage)
-        - [`prop.regex(expression, [message])`](#propregexexpression-message)
-        - [`prop.email([message])`](#propemailmessage)
-        - [`prop.token([message])`](#proptokenmessage)
-        - [`prop.guid([message])`](#propguidlmessage)
-        - [`prop.uppercase([message])`](#propguidlmessage)
-        - [`prop.lowercase([message])`](#lowercase)
-    - [Strings](#strings)
-        - [`prop.greater(limit, [message])`](#propgreaterlimit-message)
-        - [`prop.less(limit, [message])`](#proplesslimit-message)
-        - [`prop.integer([message])`](#propintegermessage)
-- [Utilities](#utilities)
-
-
+- [Property Builder](#property-builder)
+    - [Universal](#universal)
+        - [`prop.set(key, value)`](#propsetkey-value)
+        - [`prop.validate(errorMsg, valFunction)`](#propvalidateerrormsg-valfunction)
+        - [`prop.index(key, value)`](#propindexkey-value)
+    - [Types](#types)
+        - [`prop.string()`](#propstring)
+        - [`prop.date()`](#propdate)
+        - [`prop.number()`](#propnumber)
+        - [`prop.buffer()`](#propbuffer)
+        - [`prop.mixed()`](#propmixed)
+        - [`prop.objectId()`](#propobjectid)
+        - [`prop.array()`](#proparray)
+    - [Validation](#validation)
+        - [Shared](#shared)
+            - [`prop.required()`](#proprequired)
+            - [`prop.default(value)`](#propdefaultvalue)
+            - [`prop.enum(values, [message])`](#propenumvalues-message)
+            - [`prop.unique([bool])`](#propuniquebool)
+            - [`prop.min(value, [message])`](#propminvalue-message)
+            - [`prop.max(value, [message])`](#propmaxvalue-message)
+            - [`prop.length(value)`](#proplengthvalue)
+        - [Arrays](#arrays)
+            - [`prop.array().sparse([enables])`](#propsparseenabled)
+        - [Strings](#strings)
+            - [`prop.alphanum([message])`](#propalphanummessage)
+            - [`prop.regex(expression, [message])`](#propregexexpression-message)
+            - [`prop.email([message])`](#propemailmessage)
+            - [`prop.token([message])`](#proptokenmessage)
+            - [`prop.guid([message])`](#propguidlmessage)
+            - [`prop.uppercase([message])`](#propguidlmessage)
+            - [`prop.lowercase([message])`](#lowercase)
+        - [Strings](#strings)
+            - [`prop.greater(limit, [message])`](#propgreaterlimit-message)
+            - [`prop.less(limit, [message])`](#proplesslimit-message)
+            - [`prop.integer([message])`](#propintegermessage)
 
 
 
@@ -54,7 +52,28 @@ A node utility to simplify model and schema management
 TODO: add basic usage including config setup
 
 
-# General Utilities
+# Property Builder
+
+The core use of mongoman is schema creation via property building. To make a new schema, simply use the property builder chain, initiated with `mongoman()` anf terminated with `fin()`. For example. a simple user schema might look something like this
+
+```javscript
+mon = require('mongoman');
+
+var user = {
+
+  // validates the name to be a required string that fits the regex
+  name : mon().string().required().regex(/[a-z]+\s*[a-z+]/i).fin(),
+
+  // sets the registered propert to default tothe current date-time
+  registered : mon().date().default(new Date()).fin(),
+
+  // validates the age to be a required integer of at least 18
+  age : mon().required().number().integer.min(18).fin()
+
+}
+```
+
+## Universal
 
 If a property or validation isn't included as a supported chainable function, you can easily include any missing values using the following functions
 
@@ -366,29 +385,10 @@ return an error if the string is not an integer
 
 
 
-
-
-
-# NOTHING BELOW THIS LINE IS TESTED
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 TODO
 ====
 
-general
+general docs/tests
 
 register
 new
