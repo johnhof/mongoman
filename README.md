@@ -1,49 +1,57 @@
 Mongoman
 ========
 
-A node utility to simplify model and schema management
-
-# Do not use this. I'm in the process of writing test to make sure everything is hunky-dory. check back in a week
+A node utility to simplify model and schema management. Most utility is wrapped around the `mongoose` package. If you would like to use mongoman as a replacement for mongoose, mongoose is aliased at both `mon.mongoose` and `mon.goose`
 
 # Key
 
 - [Usage](#usage)
-- [General Utilities](#general-utilities)
-    - [`prop.set(key, value)`](#propsetkey-value)
-    - [`prop.validate(errorMsg, valFunction)`](#propvalidateerrormsg-valfunction)
-    - [`prop.index(key, value)`](#propindexkey-value)
-- [Types](#types)
-    - [`prop.string()`](#propstring)
-    - [`prop.date()`](#propdate)
-    - [`prop.number()`](#propnumber)
-    - [`prop.buffer()`](#propbuffer)
-    - [`prop.mixed()`](#propmixed)
-    - [`prop.objectId()`](#propobjectid)
-    - [`prop.array()`](#proparray)
-- [Validation](#validation)
-    - [Shared](#shared)
-        - [`prop.required()`](#proprequired)
-        - [`prop.default(value)`](#propdefaultvalue)
-        - [`prop.enum(values, [message])`](#propenumvalues-message)
-        - [`prop.unique([bool])`](#propuniquebool)
-        - [`prop.min(value, [message])`](#propminvalue-message)
-        - [`prop.max(value, [message])`](#propmaxvalue-message)
-        - [`prop.length(value)`](#proplengthvalue)
-    - [Arrays](#arrays)
-        - [`prop.array().sparse([enables])`](#propsparseenabled)
-    - [Strings](#strings)
-        - [`prop.alphanum([message])`](#propalphanummessage)
-        - [`prop.regex(expression, [message])`](#propregexexpression-message)
-        - [`prop.email([message])`](#propemailmessage)
-        - [`prop.token([message])`](#proptokenmessage)
-        - [`prop.guid([message])`](#propguidlmessage)
-        - [`prop.uppercase([message])`](#propguidlmessage)
-        - [`prop.lowercase([message])`](#lowercase)
-    - [Strings](#strings)
-        - [`prop.greater(limit, [message])`](#propgreaterlimit-message)
-        - [`prop.less(limit, [message])`](#proplesslimit-message)
-        - [`prop.integer([message])`](#propintegermessage)
+- [Property Builder](#property-builder)
+    - [Universal](#universal)
+        - [`prop.set(key, value)`](#propsetkey-value)
+        - [`prop.validate(errorMsg, valFunction)`](#propvalidateerrormsg-valfunction)
+        - [`prop.index(key, value)`](#propindexkey-value)
+    - [Types](#types)
+        - [`prop.string()`](#propstring)
+        - [`prop.date()`](#propdate)
+        - [`prop.number()`](#propnumber)
+        - [`prop.buffer()`](#propbuffer)
+        - [`prop.mixed()`](#propmixed)
+        - [`prop.objectId()`](#propobjectid)
+        - [`prop.array()`](#proparray)
+    - [Validation](#validation)
+        - [Shared](#shared)
+            - [`prop.required()`](#proprequired)
+            - [`prop.default(value)`](#propdefaultvalue)
+            - [`prop.enum(values, [message])`](#propenumvalues-message)
+            - [`prop.unique([bool])`](#propuniquebool)
+            - [`prop.min(value, [message])`](#propminvalue-message)
+            - [`prop.max(value, [message])`](#propmaxvalue-message)
+            - [`prop.length(value)`](#proplengthvalue)
+        - [Arrays](#arrays)
+            - [`prop.array().sparse([enables])`](#propsparseenabled)
+        - [Strings](#strings)
+            - [`prop.alphanum([message])`](#propalphanummessage)
+            - [`prop.regex(expression, [message])`](#propregexexpression-message)
+            - [`prop.email([message])`](#propemailmessage)
+            - [`prop.token([message])`](#proptokenmessage)
+            - [`prop.guid([message])`](#propguidlmessage)
+            - [`prop.uppercase([message])`](#propguidlmessage)
+            - [`prop.lowercase([message])`](#lowercase)
+        - [Numbers](#numbers)
+            - [`prop.greater(limit, [message])`](#propgreaterlimit-message)
+            - [`prop.less(limit, [message])`](#proplesslimit-message)
+            - [`prop.integer([message])`](#propintegermessage)
 - [Utilities](#utilities)
+  - [`mon.register(schema, options)`](#monregisterschema-options)
+  - [`mon.drop(collection)`](#mondropcollection)
+  - [`mon.connect([options])`](#monconnectoptions)
+  - [`mon.schema(schema)`](#monschemaschema)
+  - [`mon.model(modelName)`](#monmodelmodelname)
+  - [`mon.new(modelName)`](#monnewmdoelname)
+  - [`mon.register(schema, [options])`](#monregisterschema-options)
+
+
 
 
 
@@ -51,10 +59,92 @@ A node utility to simplify model and schema management
 
 # Usage
 
-TODO: add basic usage including config setup
+
+  `npm install mongoman`
+
+  leverage mongoman to cut down on bloat in model creation. For example. this
+
+  ```javascript
+  var mongoose = require('mongoose');
+
+  var newSchema = new mongoose.Schema({
+    email : {
+      type       : String,
+      required   : true,
+      validation : [{
+        msg       : 'invalid email',
+        validator : function (value) {
+          return /^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/.test(value);
+        }
+      }]
+    password : {
+      type       : String,
+      required   : true,
+      validation : [{
+        msg       : 'too short',
+        validator : function (value) {
+          return value.length >= 6
+        }
+      }]
+    }
+  });
+
+  mongoose.model('ExampleModel', newSchema);
 
 
-# General Utilities
+  ```
+
+  becomes this
+
+  ```javascript
+  var mon = require('mongoman');
+
+  mon.register('ExampleModel', {
+    email    : mon().string().requried().email().fin(),
+    password : mon().string().required().min(6).fin()
+  });
+```
+
+The focus of mongoman is to simplify validation and schema creation. However, I do recommed looking at the [utilities](#utilities) section for some helpful function
+
+
+
+
+# Property Builder
+
+
+
+
+
+
+
+The core use of mongoman is schema creation via property building. To make a new schema, simply use the property builder chain, initiated with `mongoman()` anf terminated with `fin()`. For example. a simple user schema might look something like this
+
+```javscript
+mon = require('mongoman');
+
+var user = {
+
+  // validates the name to be a required string that fits the regex
+  name : mon().string().required().regex(/[a-z]+\s*[a-z+]/i).fin(),
+
+  // sets the registered propert to default tothe current date-time
+  registered : mon().date().default(new Date()).fin(),
+
+  // validates the age to be a required integer of at least 18
+  age : mon().required().number().integer.min(18).fin()
+
+}
+```
+
+Every validation middleware function has a default error, but errors can be augmented to inlude a property name by passing in a value to the `mon()` function call.
+
+``` javascript
+mon().email().fin(); // validation error : 'invalid email'
+mon('My email').email().fin(); // validation error : 'My email is not a valid email'
+```
+
+## Universal
 
 If a property or validation isn't included as a supported chainable function, you can easily include any missing values using the following functions
 
@@ -369,7 +459,9 @@ return an error if the string is not an integer
 
 
 
-# NOTHING BELOW THIS LINE IS TESTED
+
+
+# Utilities
 
 
 
@@ -378,43 +470,98 @@ return an error if the string is not an integer
 
 
 
+## `mon.drop(collection)`
 
+drop a collection by name (normally just 'db')
 
+```javascript
+mon.drop('db');
+```
 
+## `mon.connect([options])`
 
+takes options, defaulting to 'mongodb://localhost/database'. returns an instance of the database. also accessable through `mon.db`
 
+```javascript
+var db = mon.connect();
+```
 
+## `mon.schema(schema)`
 
-TODO
-====
+returns an instance of a schema with the given schema object definition
 
-general
+```javascript
+var mySchema = mon.schema({
+  name : mon().string().required().fin()
+});
+```
 
-register
-new
-save
+## `mon.model(modelName)`
 
-Consider
-========
+returns the model matching the given name
 
-* string.trim()
-* date.format(format)
-* date.iso()
-* number.precision(limit)
-* array.includes(type)
-* array.excludes(type)
-* array.unique()
-* object.keys([schema])
-* object.pattern(regex, schema)
-* object.and(peers)
-* object.nand(peers)
-* object.or(peers)
-* object.xor(peers)
-* object.with(key, peers)
-* object.without(key, peers)
-* object.rename(from, to, [options])
-* object.assert(ref, schema, [message])
-* object.unknown([allow])
-* object.type(constructor, [name])
-* object.requiredKeys(children)
-* object.optionalKeys(children)
+```javascript
+var MyModel = mon.model('MyModel');
+```
+
+## `mon.new(modelName)`
+
+returns a new instance of the model specified. apploies the inputs if they are defined
+
+```javascript
+var tester = mon.new('MyModel', {
+  name : 'tester'
+});
+```
+
+## `mon.register(schema, [options])`
+
+registers a new model with the given schema and options. The options object is where middleware, methods, index properties, and virtual properties are defined. A minimalistic model is defined below
+
+```javascript
+var mon    = require('mongoman');
+var bcrypt = require('bcrypt-nodejs');
+
+mon.register('Person', {
+  firstName : mon().string().required().fin(),
+  lastName  : mon().string().required().fin(),
+  secret    : mon().string().fin()
+}, {
+  middleware : {
+    pre : {
+      save : function (callback) {
+        if (this.isModified('secret'))  {
+          this.secret = bcrypt.hashSync(this.secret, bcrypt.genSaltSync());
+        }
+
+        return callback();
+      }
+    }
+  },
+  methods : {
+    findFamily : function (callback) {
+      return mon.model('Person').find({
+        lastName : this.lastName
+      }, callback);
+    },
+    compareSecret : function(submitted, callback) {
+      var result = bcrypt.compareSync(submitted, this.secret);
+      return callback(null, result);
+    }
+  },
+  statics : {
+    findByFirst : function (first, callback) {
+      return mon.model('Person').find({
+        firstName : first
+      }, callback);
+    }
+  },
+  virtuals : {
+    fullName : {
+      get : function () {
+        return this.firstName + ' ' + this.lastName;
+      }
+    }
+  }
+});
+```
