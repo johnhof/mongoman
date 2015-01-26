@@ -105,6 +105,7 @@ A node utility to simplify model and schema management. Most utility is wrapped 
   });
 ```
 
+The focus of mongoman is to simplify validation and schema creation. However, I do recommed looking at the [utilities](#utilities) section for some helpful function
 
 
 
