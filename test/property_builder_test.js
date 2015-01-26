@@ -4,7 +4,6 @@ var chai   = require('chai');
 var db     = mon.connect();
 var expect = chai.expect;
 
-
 /////////////////////////////////////////////////////////////////////////////////
 //
 // Test prep
@@ -28,6 +27,10 @@ function findValue (obj, namespace) {
 
 
 describe('Property Builder', function () {
+ before(function (done){
+    mon.drop('db');
+    done();
+  });
 
 
   //
