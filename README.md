@@ -1,7 +1,7 @@
 Mongoman
 ========
 
-A node utility to simplify model and schema management. Most utility is wrapped around the `mongoose` package. If you would like to use mongoman as a replacement for mongoose, mongoose is aliased at both `mon.mongoose` and `mon.goose`
+A node utility to simplify schema and model management. Most utility is wrapped around the [mongoose module](http://mongoosejs.com/index.html). If you would like to use mongoman as a replacement for mongoose, mongoose is aliased at both `mon.mongoose` and `mon.goose`
 
 # Key
 
@@ -62,7 +62,7 @@ A node utility to simplify model and schema management. Most utility is wrapped 
 
   `npm install mongoman`
 
-  leverage mongoman to cut down on bloat in model creation. For example. this
+  leverage mongoman to cut down on bloat in model creation. For example, this
 
   ```javascript
   var mongoose = require('mongoose');
@@ -90,8 +90,6 @@ A node utility to simplify model and schema management. Most utility is wrapped 
   });
 
   mongoose.model('ExampleModel', newSchema);
-
-
   ```
 
   becomes this
@@ -100,12 +98,12 @@ A node utility to simplify model and schema management. Most utility is wrapped 
   var mon = require('mongoman');
 
   mon.register('ExampleModel', {
-    email    : mon().string().requried().email().fin(),
+    email    : mon().string().required().email().fin(),
     password : mon().string().required().min(6).fin()
   });
 ```
 
-The focus of mongoman is to simplify validation and schema creation. However, I do recommed looking at the [utilities](#utilities) section for some helpful function
+The focus of mongoman is to simplify validation and schema creation. However, I do recommed looking at the [utilities](#utilities) section for some helpful utilities.
 
 
 
@@ -118,9 +116,9 @@ The focus of mongoman is to simplify validation and schema creation. However, I 
 
 
 
-The core use of mongoman is schema creation via property building. To make a new schema, simply use the property builder chain, initiated with `mongoman()` anf terminated with `fin()`. For example. a simple user schema might look something like this
+The core use of mongoman is schema creation via property building. To make a new schema, simply use the property builder chain, initiated with `mongoman()` and terminated with `fin()`. For example. a simple user schema might look something like this
 
-```javscript
+```javascript
 mon = require('mongoman');
 
 var user = {
@@ -146,19 +144,19 @@ mon('My email').email().fin(); // validation error : 'My email is not a valid em
 
 ## Universal
 
-If a property or validation isn't included as a supported chainable function, you can easily include any missing values using the following functions
+If a property or validation isn't included as a supported chainable function, you can easily include it using the following functions.
 
 ### `prop.set(key, value)`
 
 Set the key/value passed in for the property
 
 ```javascript
-  schema.newProp = mon().set('type', 'string').fin();
+  schema.newProp = mon().set('type', String).fin();
 ```
 
 ### `prop.validate(errorMsg, valFunction)`
 
-Bind the validation function to the property, returning the error if it returns false
+Bind the validation function to the property, throwing the error message if it returns false
 
 ```javascript
   function isOdd (value) {
@@ -170,7 +168,7 @@ Bind the validation function to the property, returning the error if it returns 
 
 ### `prop.index(key, value)`
 
-Bind the key and value to the index adttribute of the property
+Bind the key and value to the index attribute of the property
 
 ```javascript
   schema.newProp = mon().index('unique', false).fin();
@@ -256,9 +254,9 @@ Set property type to be `Array`
 
 # Validation
 
-**important:** using validations that to not apply to the property type will throw an error, to allow it to pass silenly, set mongo configuration `strict : false`
+**important:** using validations that do not apply to the property type will throw an error. To allow them to pass silently, set mongo configuration `strict : false`.
 
-any time `[]` is a function parameted, its is optional. anytime `[message]` is included, a default message will be used unless this parameter is set
+Any time `[]` is a function parameter, its is optional. any time `[message]` is included, a default message will be used unless this parameter is specified.
 
 
 
@@ -292,7 +290,7 @@ If no value is set for the property, set it to the default value passed in
 
 type: any
 
-If the value submitted is not uncluded in thte list of enumerated properties, an error is returned.
+If the value submitted is not uncluded in the list of enumerated properties, an error is returned.
 
 ```javascript
   schema.newProp = mon().enum(['foo', 'bar'], 'custom error').fin();
@@ -304,7 +302,7 @@ efault value').fin();
 
 type: any
 
-Insures a unique index is generated for the path. defaults to true. False causes the DB to be indifferent
+Insures a unique index is generated for the property. defaults to true. False causes the DB to be indifferent
 
 ```javascript
   schema.newProp = mon().unique().fin();
@@ -432,7 +430,7 @@ return an error if the string is not lowercase
 
 ### `prop.greater(limit, [message])`
 
-return an error if the number is above the limit
+return an error if the number is below the limit
 
 ```javascript
   schema.newProp = mon().number().greater(5).fin();
@@ -440,10 +438,10 @@ return an error if the number is above the limit
 
 ### `prop.less(limit, [message])`
 
-return an error if the number is below the limit
+return an error if the number is above the limit
 
 ```javascript
-  schema.newProp = mon().string().less(5).fin();
+  schema.newProp = mon().number().less(5).fin();
 ```
 
 ### `prop.integer([message])`
@@ -506,7 +504,7 @@ var MyModel = mon.model('MyModel');
 
 ## `mon.new(modelName)`
 
-returns a new instance of the model specified. apploies the inputs if they are defined
+returns a new instance of the model specified. applies the inputs if they are defined
 
 ```javascript
 var tester = mon.new('MyModel', {
