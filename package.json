@@ -2,8 +2,8 @@
   "name": "mongoman",
   "author": "John Hofrichter <https://github.com/johnhof>",
   "description": "MongoDB management utility",
-  "version": "0.0.1",
-  "repository": "git://github.com/johnhof/Mongoman",
+  "version": "0.0.2",
+  "repository": "git://github.com/johnhof/mongoman",
   "main": "lib/mongoman.js",
   "keywords": [
     "schema",
