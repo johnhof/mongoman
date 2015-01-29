@@ -29,7 +29,7 @@ A node utility to simplify schema and model management. Most utility is wrapped 
             - [`prop.max(value, [message])`](#propmaxvalue-message)
             - [`prop.length(value)`](#proplengthvalue)
         - [Arrays](#arrays)
-            - [`prop.array().sparse([enables])`](#propsparseenabled)
+            - [`prop.sparse([enables])`](#propsparseenabled)
         - [Strings](#strings)
             - [`prop.alphanum([message])`](#propalphanummessage)
             - [`prop.regex(expression, [message])`](#propregexexpression-message)
