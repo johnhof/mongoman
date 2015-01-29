@@ -295,8 +295,6 @@ If the value submitted is not uncluded in the list of enumerated properties, an 
 ```javascript
   schema.newProp = mon().enum(['foo', 'bar'], 'custom error').fin();
 ```
-efault value').fin();
-```
 
 ### `prop.unique([bool])`
 
