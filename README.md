@@ -29,7 +29,7 @@ A node utility to simplify schema and model management. Most utility is wrapped 
             - [`prop.max(value, [message])`](#propmaxvalue-message)
             - [`prop.length(value)`](#proplengthvalue)
         - [Arrays](#arrays)
-            - [`prop.array().sparse([enables])`](#propsparseenabled)
+            - [`prop.sparse([enables])`](#propsparseenabled)
         - [Strings](#strings)
             - [`prop.alphanum([message])`](#propalphanummessage)
             - [`prop.regex(expression, [message])`](#propregexexpression-message)
@@ -466,7 +466,7 @@ return an error if the string is not an integer
 
 
 
-## `mon.drop(collection)`
+### `mon.drop(collection)`
 
 drop a collection by name (normally just 'db')
 
@@ -474,7 +474,7 @@ drop a collection by name (normally just 'db')
 mon.drop('db');
 ```
 
-## `mon.connect([options])`
+### `mon.connect([options])`
 
 takes options, defaulting to 'mongodb://localhost/database'. returns an instance of the database. also accessable through `mon.db`
 
@@ -482,7 +482,7 @@ takes options, defaulting to 'mongodb://localhost/database'. returns an instance
 var db = mon.connect();
 ```
 
-## `mon.schema(schema)`
+### `mon.schema(schema)`
 
 returns an instance of a schema with the given schema object definition
 
@@ -492,7 +492,7 @@ var mySchema = mon.schema({
 });
 ```
 
-## `mon.model(modelName)`
+### `mon.model(modelName)`
 
 returns the model matching the given name
 
@@ -500,7 +500,7 @@ returns the model matching the given name
 var MyModel = mon.model('MyModel');
 ```
 
-## `mon.new(modelName)`
+### `mon.new(modelName)`
 
 returns a new instance of the model specified. applies the inputs if they are defined
 
@@ -510,7 +510,7 @@ var tester = mon.new('MyModel', {
 });
 ```
 
-## `mon.register(schema, [options])`
+### `mon.register(schema, [options])`
 
 registers a new model with the given schema and options. The options object is where middleware, methods, index properties, and virtual properties are defined. A minimalistic model is defined below
 
