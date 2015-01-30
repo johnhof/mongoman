@@ -43,7 +43,6 @@ A node utility to simplify schema and model management. Most utility is wrapped 
             - [`prop.less(limit, [message])`](#proplesslimit-message)
             - [`prop.integer([message])`](#propintegermessage)
 - [Utilities](#utilities)
-  - [`mon.register(schema, options)`](#monregisterschema-options)
   - [`mon.drop(collection)`](#mondropcollection)
   - [`mon.connect([options])`](#monconnectoptions)
   - [`mon.schema(schema)`](#monschemaschema)
