@@ -27,7 +27,7 @@ A node utility to simplify schema and model management. Most utility is wrapped 
             - [`prop.unique([bool])`](#propuniquebool)
             - [`prop.min(value, [message])`](#propminvalue-message)
             - [`prop.max(value, [message])`](#propmaxvalue-message)
-            - [`prop.length(value)`](#proplengthvalue)
+            - [`prop.length(value)`](#proplengthvalue, [message])
         - [Arrays](#arrays)
             - [`prop.sparse([enables])`](#propsparseenabled)
         - [Strings](#strings)
