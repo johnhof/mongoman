@@ -47,7 +47,7 @@ A node utility to simplify schema and model management. Most utility is wrapped 
   - [`mon.connect([options])`](#monconnectoptions)
   - [`mon.schema(schema)`](#monschemaschema)
   - [`mon.model(modelName)`](#monmodelmodelname)
-  - [`mon.new(modelName)`](#monnewmdoelname)
+  - [`mon.new(modelName)`](#monnewmodelname)
   - [`mon.register(schema, [options])`](#monregisterschema-options)
 
 
