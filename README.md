@@ -36,7 +36,7 @@ A node utility to simplify schema and model management. Most utility is wrapped 
             - [`prop.email([message])`](#propemailmessage)
             - [`prop.token([message])`](#proptokenmessage)
             - [`prop.guid([message])`](#propguidmessage)
-            - [`prop.uppercase([message])`](#propuppecasemessage)
+            - [`prop.uppercase([message])`](#propuppercasemessage)
             - [`prop.lowercase([message])`](#proplowercasemessage)
         - [Numbers](#numbers)
             - [`prop.greater(limit, [message])`](#propgreaterlimit-message)
