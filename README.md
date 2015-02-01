@@ -36,6 +36,8 @@ A node utility to simplify schema and model management. Most utility is wrapped 
             - [`prop.email([message])`](#propemailmessage)
             - [`prop.token([message])`](#proptokenmessage)
             - [`prop.guid([message])`](#propguidmessage)
+            - [`prop.hostname([message])`](#prophostnamemessage)
+            - [`prop.url([message])`](#propurlmessage)
             - [`prop.uppercase([message])`](#propuppercasemessage)
             - [`prop.lowercase([message])`](#proplowercasemessage)
         - [Numbers](#numbers)
@@ -398,6 +400,20 @@ return an error if the string is not a valid GUID
 
 ```javascript
   schema.newProp = mon().string().guid().fin();
+
+```### `prop.hostname([message])`
+
+return an error if the string is not a valid hostname
+
+```javascript
+  schema.newProp = mon().string().hostname().fin();
+
+```### `prop.url([message])`
+
+return an error if the string is not a valid url
+
+```javascript
+  schema.newProp = mon().string().url().fin();
 ```
 
 ### `prop.uppercase([message])`

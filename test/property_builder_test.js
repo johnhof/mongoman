@@ -547,6 +547,37 @@ describe('Property Builder', function () {
     }); // END - hostname
 
     //
+    // URL
+    //
+    describe('url', function () {
+      var passes    = 'http://userid:password@example.com:8080/?test=foo&bar';
+      var fails     = 'http://.www.foo.bar./';
+      var modelName = 'urlModel';
+
+      mon.register(modelName, {
+        prop : mon().url().string().fin()
+      });
+
+      // pass
+      it('should allow valid url', function (done) {
+        var model = mon.new(modelName, { prop : passes });
+        model.save(function (error, result) {
+          expect(error).to.equal(null);
+          done();
+        });
+      });
+
+      // fail
+      it('should reject invalid url', function (done) {
+        var model = mon.new(modelName, { prop : fails });
+        model.save(function (error, result) {
+          expect(findValue(error, 'errors.prop.message')).to.contain('valid url');
+          done();
+        });
+      });
+    }); // END - URL
+
+    //
     // Uppercase
     //
     describe('Uppercase', function () {
