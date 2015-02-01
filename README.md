@@ -401,14 +401,18 @@ return an error if the string is not a valid GUID
 ```javascript
   schema.newProp = mon().string().guid().fin();
 
-```### `prop.hostname([message])`
+```
+
+### `prop.hostname([message])`
 
 return an error if the string is not a valid hostname
 
 ```javascript
   schema.newProp = mon().string().hostname().fin();
 
-```### `prop.url([message])`
+```
+
+### `prop.url([message])`
 
 return an error if the string is not a valid url
 
