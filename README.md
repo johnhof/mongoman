@@ -560,3 +560,14 @@ mon.register('Person', {
   }
 });
 ```
+
+
+# Running Unit Tests
+
+To run the unit tests, execute the following:
+```
+  npm test
+```
+
+Please make sure all unit tests pass before making a new PR
+
