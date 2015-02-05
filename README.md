@@ -5,6 +5,8 @@ Mongoman
 
 A node utility to simplify schema and model management. Most utility is wrapped around the [mongoose module](http://mongoosejs.com/index.html). If you would like to use mongoman as a replacement for mongoose, mongoose is aliased at both `mon.mongoose` and `mon.goose`
 
+Check out the more [user friendly documentation](http://johnhofrichter.com/#/mongoman/documentation?fullpage)
+
 # Key
 
 - [Usage](#usage)
