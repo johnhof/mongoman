@@ -1,8 +1,7 @@
 var mon    = require(process.cwd());
 var mocha  = require('mocha');
-var chai   = require('chai');
+var expect = require('chai').expect;
 var db     = mon.connect();
-var expect = chai.expect;
 
 /////////////////////////////////////////////////////////////////////////////////
 //
