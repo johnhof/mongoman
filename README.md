@@ -610,7 +610,7 @@ mon.register('bar', { bar : mon().string().fin() });
 
 mon.connect();
 
-mon.registerAll('../models', /_models/); // registers ['bar']
+mon.registerAll('../models', /_model/); // registers ['bar']
 
 // OR
 
