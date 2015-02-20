@@ -18,16 +18,19 @@
     "node": ">=0.8.0"
   },
   "dependencies": {
+    "fs": "0.0.2",
     "lodash": "2.4.x",
     "mongoose": "3.8.x"
   },
-  "scripts":  {
+  "scripts": {
     "test": "mocha"
   },
-  "licenses": [{
-    "type": "MIT",
-    "url": "https://github.com/johnhof/mongoman/blob/master/LICENSE-MIT"
-  }],
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/johnhof/mongoman/blob/master/LICENSE-MIT"
+    }
+  ],
   "devDependencies": {
     "should": "1.1.x",
     "bcrypt-nodejs": "0.0.x",

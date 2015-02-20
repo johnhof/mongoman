@@ -1,8 +1,7 @@
-var mon    = require(process.cwd());
+var Mon    = require(process.cwd());
 var bcrypt = require('bcrypt-nodejs');
 var mocha  = require('mocha');
-var chai   = require('chai');
-var expect = chai.expect;
+var expect = require('chai').expect;
 var async  = require('async');
 
 /////////////////////////////////////////////////////////////////////////////////
@@ -29,13 +28,13 @@ function findValue (obj, namespace) {
 describe('utilities', function () {
   var johnsSecret = 'johns secret';
 
-  before(function (done){
-    mon.drop('db');
+  before(function (done) {
+    Mon.drop('db');
 
-    mon.register('Person', {
-      firstName : mon().string().required().fin(),
-      lastName  : mon().string().required().fin(),
-      secret    : mon().string().fin()
+    Mon.register('Person', {
+      firstName : Mon().string().required().fin(),
+      lastName  : Mon().string().required().fin(),
+      secret    : Mon().string().fin()
     }, {
       middleware : {
         pre : {
@@ -50,7 +49,7 @@ describe('utilities', function () {
       },
       methods : {
         findFamily : function (callback) {
-          return mon.model('Person').find({
+          return Mon.model('Person').find({
             lastName : this.lastName
           }, callback);
         },
@@ -61,7 +60,7 @@ describe('utilities', function () {
       },
       statics : {
         findByFirst : function (first, callback) {
-          return mon.model('Person').find({
+          return Mon.model('Person').find({
             firstName : first
           }, callback);
         }
@@ -77,16 +76,16 @@ describe('utilities', function () {
 
     async.series([
       function save (callback) {
-        mon.new('Person', { firstName : 'andy',  lastName : 'smith', secret : 'andys secret' }).save(callback);
+        Mon.new('Person', { firstName : 'andy',  lastName : 'smith', secret : 'andys secret' }).save(callback);
       },
       function save (callback) {
-        mon.new('Person', { firstName : 'dan',  lastName : 'testington', secret : 'dans secret' }).save(callback);
+        Mon.new('Person', { firstName : 'dan',  lastName : 'testington', secret : 'dans secret' }).save(callback);
       },
       function save (callback) {
-        mon.new('Person', { firstName : 'juno',  lastName : 'dandy', secret : 'junos secret' }).save(callback);
+        Mon.new('Person', { firstName : 'juno',  lastName : 'dandy', secret : 'junos secret' }).save(callback);
       },
       function save (callback) {
-        mon.new('Person', { firstName : 'john',  lastName : 'johnson', secret : johnsSecret }).save(callback);
+        Mon.new('Person', { firstName : 'john',  lastName : 'johnson', secret : johnsSecret }).save(callback);
       },
     ], done);
   });
@@ -104,7 +103,7 @@ describe('utilities', function () {
     //
     describe('Virtual', function () {
       it('should access virtual fullName', function (done) {
-        mon.model('Person').findOne({ firstName : 'john' }, function (error, person) {
+        Mon.model('Person').findOne({ firstName : 'john' }, function (error, person) {
           expect(error).to.be.equal(null);
           expect(person.fullName).to.be.equal('john johnson');
           done();
@@ -118,7 +117,7 @@ describe('utilities', function () {
     //
     describe('Middleware', function () {
       it('should verify that the secrets were hashed', function (done) {
-        mon.model('Person').findOne({ firstName : 'john' }, function (error, person) {
+        Mon.model('Person').findOne({ firstName : 'john' }, function (error, person) {
           expect(error).to.be.equal(null);
           person.compareSecret(johnsSecret, function (err, result) {
             expect(err).to.be.equal(null);
@@ -135,7 +134,7 @@ describe('utilities', function () {
     //
     describe('Method', function () {
       it('should call method `findFamily`', function (done) {
-        var joe = mon.new('Person', { firstName : 'joe',  lastName : 'smith'});
+        var joe = Mon.new('Person', { firstName : 'joe',  lastName : 'smith'});
 
         joe.findFamily(function (error, family) {
           expect(error).to.be.equal(null);
@@ -152,12 +151,47 @@ describe('utilities', function () {
     //
     describe('Static', function () {
       it('should call static `findByFirst`', function (done) {
-        mon.model('Person').findByFirst('john', function (error, family) {
+        Mon.model('Person').findByFirst('john', function (error, family) {
           expect(error).to.be.equal(null);
           expect(family).to.have.length(1);
           expect(family[0].lastName).to.be.equal('johnson');
           done();
         });
+      });
+    });
+  });
+
+
+  describe('InitModels', function () {
+    beforeEach(function () {
+      Mon.drop('db');
+    });
+
+    function model (model) {
+      return function () { return Mon.model(model); }
+    }
+
+    //
+    // Flat structure, no regex
+    //
+    describe('Flat Structure', function () {
+      it('should register models `biz` and `buz` in flat directory', function () {
+        Mon.registerAll(__dirname + '/models/flat');
+        expect(Mon.model('biz')).to.be.a('function');
+        expect(Mon.model('buz')).to.be.a('function');
+      });
+    });
+
+
+    //
+    // Tree structure, regex
+    //
+    describe('Tree Structure', function () {
+      it('should register models `bar` and `baz` in directory tree matching regex `/_model/`', function () {
+        Mon.registerAll(__dirname + '/models/tree', /_model/)
+        expect(Mon.model('bar')).to.be.a('function');
+        expect(Mon.model('baz')).to.be.a('function');
+        expect(model('foo')).to.throw(/Schema hasn\'t been registered/);
       });
     });
   });

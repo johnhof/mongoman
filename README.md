@@ -47,12 +47,14 @@ A node utility to simplify schema and model management. Most utility is wrapped 
             - [`prop.less(limit, [message])`](#proplesslimit-message)
             - [`prop.integer([message])`](#propintegermessage)
 - [Utilities](#utilities)
-  - [`mon.drop(collection)`](#mondropcollection)
-  - [`mon.connect([options])`](#monconnectoptions)
-  - [`mon.schema(schema)`](#monschemaschema)
-  - [`mon.model(modelName)`](#monmodelmodelname)
-  - [`mon.new(modelName)`](#monnewmodelname)
-  - [`mon.register(schema, [options])`](#monregisterschema-options)
+    - [`mon.drop(collection)`](#mondropcollection)
+    - [`mon.connect([options])`](#monconnectoptions)
+    - [`mon.schema(schema)`](#monschemaschema)
+    - [`mon.model(modelName)`](#monmodelmodelname)
+    - [`mon.new(modelName)`](#monnewmodelname)
+    - [`mon.register(schema, [options])`](#monregisterschema-options)
+    - [`mon.registerAll(directory, [regex])`](#monregisteralldirectory-regex)
+- [Tests](#running-unit-tests)
 
 
 
@@ -582,6 +584,47 @@ mon.register('Person', {
   }
 });
 ```
+
+### `mon.registerAll(directory, [regex])`
+
+traverses the directory tree 'requireing' all js files (to register models on server startup). optional regex to filter files
+
+**./models/foo.js**
+
+```javascript
+var mon = require('mongoman');
+mon.register('foo', { foo : mon().string().fin() });
+```
+
+**./models/sub_models/bar_model.js**
+
+```javascript
+var mon = require('mongoman');
+mon.register('bar', { bar : mon().string().fin() });
+```
+
+**./server.js**
+
+```javascript
+// ... server setup
+
+mon.connect();
+
+mon.registerAll('../models', /_models/); // registers ['bar']
+
+// OR
+
+mon.registerAll('../models'); // registers ['foo', 'bar']
+
+// ... server finalizing
+```
+
+
+
+
+
+
+
 
 
 # Running Unit Tests
