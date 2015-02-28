@@ -32,9 +32,118 @@ describe('Property Builder', function () {
   });
 
 
+  //////////////////////////////////////////////////////////////////////////
+  //
+  // SchemaType attributes
+  //
+  //////////////////////////////////////////////////////////////////////////
+
+
+  describe('SchemaType Attributes', function () {
+
+    //
+    // Get
+    //
+    describe('On Get', function () {
+      var val       = 'foo';
+      var addition  = '-test'
+      var modelName = 'getModel';
+
+      function getTest (value) { return value ? value + addition : value; }
+
+      mon.register(modelName, {
+        prop : mon().string().onGet(getTest).fin()
+      });
+
+      it('should create get middleware for the property', function (done) {
+        var model = mon.new(modelName, { prop : val });
+        model.save(function (error, result) {
+          expect(error).to.equal(null);
+          expect(findValue(result, 'prop')).to.equal(val + addition);
+          done();
+        });
+      });
+    });
+
+    //
+    // Get
+    //
+    describe('On Set', function () {
+      var val       = 'foo';
+      var addition  = '-test'
+      var modelName = 'setModel';
+
+      function setTest (value) { return value ? value + addition : value; }
+
+      mon.register(modelName, {
+        prop : mon().string().onSet(setTest).fin()
+      });
+
+      it('should create set middleware for the property', function (done) {
+        var model = mon.new(modelName, { prop : val });
+        model.save(function (error, result) {
+          expect(error).to.equal(null);
+          expect(findValue(result, 'prop')).to.equal(val + addition);
+          done();
+        });
+      });
+    });
+
+
+  //   //
+  //   // Index
+  //   //
+  //   describe('Index', function () {
+  //     var val       = 'foo';
+  //     var modelName = 'getModel';
+
+  //     mon.register(modelName, {
+  //       prop  : mon().string().index('hashed').fin(),
+  //       other : mon().string().index('expires', '1d').fin(),
+
+  //     });
+
+  //     it('should create get helper for the property', function (done) {
+  //       var model = mon.new(modelName, { prop : val });
+  //       model.save(function (error, result) {
+  //         expect(error).to.equal(null);
+  //         expect(findValue(result, 'prop')).to.equal(val + addition);
+  //         done();
+  //       });
+  //     });
+  //   });
+
+
+  //   //
+  //   // Select
+  //   //
+  //   describe('Select', function () {
+  //     var val       = 'foo';
+  //     var modelName = 'selectModel';
+
+  //     mon.register(modelName, {
+  //       prop : mon().string().select().fin()
+  //     });
+
+  //     it('should create get helper for the property', function (done) {
+  //       var model = mon.new(modelName, { prop : val });
+  //       model.save(function (error, result) {
+  //         expect(error).to.equal(null);
+  //         expect(findValue(result, 'prop')).to.equal(val + addition);
+  //         done();
+  //       });
+  //     });
+  //   });
+  });
+
+
+
+
+  //////////////////////////////////////////////////////////////////////////
   //
   // Shared attributes
   //
+  //////////////////////////////////////////////////////////////////////////
 
 
   describe('Shared Attributes', function () {
@@ -640,9 +749,11 @@ describe('Property Builder', function () {
   }); // END - string
 
 
+  //////////////////////////////////////////////////////////////////////////
   //
   // Number attributes
   //
+  //////////////////////////////////////////////////////////////////////////
 
 
   describe('Number Attributes', function () {

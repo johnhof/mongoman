@@ -12,7 +12,7 @@ A node utility to simplify schema and model management. Most utility is wrapped 
     - [Universal](#universal)
         - [`prop.set(key, value)`](#propsetkey-value)
         - [`prop.validate(errorMsg, valFunction)`](#propvalidateerrormsg-valfunction)
-        - [`prop.index(key, value)`](#propindexkey-value)
+        - [`prop.index(key|value, [value])`](#propindexkeyvalue-value)
     - [Types](#types)
         - [`prop.string()`](#propstring)
         - [`prop.date()`](#propdate)
@@ -171,12 +171,15 @@ Bind the validation function to the property, throwing the error message if it r
   schema.newProp = mon().validate('newProp must be odd', isOdd).fin();
 ```
 
-### `prop.index(key, value)`
+### `prop.index(key|value, [value])`
 
-Bind the key and value to the index attribute of the property
+Bind the key and value to the index attribute of the property. PRoviding only one parameter will set `index` equal to that parameter
 
 ```javascript
   schema.newProp = mon().index('unique', false).fin();
+  // or
+  schema.newProp = mon().index('hashed').fin();
+
 ```
 
 
@@ -587,7 +590,7 @@ mon.register('Person', {
 
 ### `mon.registerAll(directory, [regex])`
 
-traverses the directory tree 'requireing' all js files (to register models on server startup). optional regex to filter files
+traverses the directory tree requiring all js files (to register models on server startup). optional regex to filter files
 
 **./models/foo.js**
 
