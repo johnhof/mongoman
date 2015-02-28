@@ -184,7 +184,7 @@ Bind the validation function to the property, throwing the error message if it r
 
 ### `prop.index(key|value, [value])`
 
-Bind the key and value to the index attribute of the property. PRoviding only one parameter will set `index` equal to that parameter
+Bind the key and value to the index attribute of the property. Providing only one parameter will set `index` equal to that parameter
 
 ```javascript
   schema.newProp = mon().index('unique', false).fin();
