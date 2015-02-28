@@ -39,14 +39,14 @@ describe('Property Builder', function () {
   //////////////////////////////////////////////////////////////////////////
 
 
-  describe('SchemaType Attributes', function () {
+  describe('Middleware', function () {
 
     //
     // Get
     //
     describe('On Get', function () {
       var val       = 'foo';
-      var addition  = '-test'
+      var addition  = '-test';
       var modelName = 'getModel';
 
       function getTest (value) { return value ? value + addition : value; }
@@ -70,7 +70,7 @@ describe('Property Builder', function () {
     //
     describe('On Set', function () {
       var val       = 'foo';
-      var addition  = '-test'
+      var addition  = '-test';
       var modelName = 'setModel';
 
       function setTest (value) { return value ? value + addition : value; }
@@ -89,51 +89,89 @@ describe('Property Builder', function () {
       });
     });
 
+    describe('Date Middleware', function () {
 
-  //   //
-  //   // Index
-  //   //
-  //   describe('Index', function () {
-  //     var val       = 'foo';
-  //     var modelName = 'getModel';
+      //
+      // Expires
+      //
+      describe('Expires', function () {
+        it('should create expiration time for the property', function (done) {
+          var dateTime  = 1;
+          var prop      = mon().date().expires(dateTime).fin();
 
-  //     mon.register(modelName, {
-  //       prop  : mon().string().index('hashed').fin(),
-  //       other : mon().string().index('expires', '1d').fin(),
+          expect(prop.expires).to.equal(dateTime);
+          done();
+        });
+      });
+    });
 
-  //     });
+    describe('String Middleware', function () {
 
-  //     it('should create get helper for the property', function (done) {
-  //       var model = mon.new(modelName, { prop : val });
-  //       model.save(function (error, result) {
-  //         expect(error).to.equal(null);
-  //         expect(findValue(result, 'prop')).to.equal(val + addition);
-  //         done();
-  //       });
-  //     });
-  //   });
+      //
+      // toUppercase
+      //
+      describe('To Uppercase', function () {
+        var val       = 'foo';
+        var modelName = 'uppercaseModel';
+
+        mon.register(modelName, {
+          prop : mon().string().toUppercase().fin()
+        });
+
+        it('should tranform to uppercase', function (done) {
+          var model = mon.new(modelName, { prop : val });
+          model.save(function (error, result) {
+            expect(error).to.equal(null);
+            expect(findValue(result, 'prop')).to.equal(val.toUpperCase());
+            done();
+          });
+        });
+      });
 
 
-  //   //
-  //   // Select
-  //   //
-  //   describe('Select', function () {
-  //     var val       = 'foo';
-  //     var modelName = 'selectModel';
+      //
+      // toLowercase
+      //
+      describe('To Lowercase', function () {
+        var val       = 'foo';
+        var modelName = 'lowercaseModel';
 
-  //     mon.register(modelName, {
-  //       prop : mon().string().select().fin()
-  //     });
+        mon.register(modelName, {
+          prop : mon().string().toLowercase().fin()
+        });
 
-  //     it('should create get helper for the property', function (done) {
-  //       var model = mon.new(modelName, { prop : val });
-  //       model.save(function (error, result) {
-  //         expect(error).to.equal(null);
-  //         expect(findValue(result, 'prop')).to.equal(val + addition);
-  //         done();
-  //       });
-  //     });
-  //   });
+        it('should transform to lowercase', function (done) {
+          var model = mon.new(modelName, { prop : val });
+          model.save(function (error, result) {
+            expect(error).to.equal(null);
+            expect(findValue(result, 'prop')).to.equal(val.toLowerCase());
+            done();
+          });
+        });
+      });
+
+
+      //
+      // trim
+      //
+      describe('Trim', function () {
+        var val       = ' foo ';
+        var modelName = 'trimModel';
+
+        mon.register(modelName, {
+          prop : mon().string().trim().fin()
+        });
+
+        it('should trim value', function (done) {
+          var model = mon.new(modelName, { prop : val });
+          model.save(function (error, result) {
+            expect(error).to.equal(null);
+            expect(findValue(result, 'prop')).to.equal(val.trim());
+            done();
+          });
+        });
+      });
+    });
   });
 
 

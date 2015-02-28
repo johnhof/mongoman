@@ -21,10 +21,21 @@ A node utility to simplify schema and model management. Most utility is wrapped 
         - [`prop.mixed()`](#propmixed)
         - [`prop.objectId()`](#propobjectid)
         - [`prop.array()`](#proparray)
+    - [Middleware](#middleware)
+        - [Shared](#shared)
+            - [`prop.onGet(function)`](#propongetfunction)
+            - [`prop.onSet(function)`](#proponsetfunction)
+        - [Date](#date)
+            - [`expires(dateTime)`](#propexpiresdateTime)
+        - [String](#string)
+            - [`prop.toUppercase()`](#proptouppercase)
+            - [`prop.toLowercase()`](#proptolowercase)
+            - [`prop.trim()`](#proptrim)
     - [Validation](#validation)
         - [Shared](#shared)
             - [`prop.required()`](#proprequired)
             - [`prop.default(value)`](#propdefaultvalue)
+            - [`prop.select([value])`](#propselectvalue)
             - [`prop.enum(values, [message])`](#propenumvalues-message)
             - [`prop.unique([bool])`](#propuniquebool)
             - [`prop.min(value, [message])`](#propminvalue-message)
@@ -259,6 +270,95 @@ Set property type to be `Array`
 
 
 
+# Middleware
+
+Any time `[]` is a function parameter, its is optional.
+
+## Shared
+
+### `prop.onGet(function)`
+
+type: any
+
+Passes the value of the property into the function. the returned value is what is exposed to the document on get
+
+```javascript
+  schema.newProp = mon().onGet(function (value) {
+    return value ? value + '-example' : value;
+  }).fin();
+```
+
+
+### `prop.onSet(function)`
+
+type: any
+
+Passes the value of the property into the function. the returned value is what is saved to the document on get
+
+```javascript
+  schema.newProp = mon().onSet(function (value) {
+    return value ? value + '-example' : value;
+  }).fin();
+```
+
+
+
+
+## Date
+
+
+
+
+
+### `prop.expires(dateTime)`
+
+type: date
+
+Sets the expiration of the date
+
+```javascript
+  schema.newProp = mon().expires('1.5h').fin();
+```
+
+## String
+
+### `prop.toUppercase()`
+
+type: string
+
+Sets the value to uppercase
+
+```javascript
+  schema.newProp = mon().toUppercase().fin();
+```
+
+### `prop.toLowercase()`
+
+type: string
+
+Sets the value lowercase
+
+```javascript
+  schema.newProp = mon().toLowercase().fin();
+```
+
+### `prop.trim()`
+
+type: string
+
+Trims the whitespace off the beginning and end of the string
+
+```javascript
+  schema.newProp = mon().trim().fin();
+```
+
+
+
+
+
+
+
+
 
 # Validation
 
@@ -292,6 +392,17 @@ If no value is set for the property, set it to the default value passed in
 
 ```javascript
   schema.newProp = mon().default('default value').fin();
+```
+
+### `prop.select([bool])`
+
+type: any
+
+`[bool]` true or undefined if this path should always be included in the results, false if it should be excluded by default. This setting can be overridden at the query level.
+
+
+```javascript
+  schema.newProp = mon().select().fin();
 ```
 
 ### `prop.enum(values, [message])`
