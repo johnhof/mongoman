@@ -32,9 +32,156 @@ describe('Property Builder', function () {
   });
 
 
+  //////////////////////////////////////////////////////////////////////////
+  //
+  // SchemaType attributes
+  //
+  //////////////////////////////////////////////////////////////////////////
+
+
+  describe('Middleware', function () {
+
+    //
+    // Get
+    //
+    describe('On Get', function () {
+      var val       = 'foo';
+      var addition  = '-test';
+      var modelName = 'getModel';
+
+      function getTest (value) { return value ? value + addition : value; }
+
+      mon.register(modelName, {
+        prop : mon().string().onGet(getTest).fin()
+      });
+
+      it('should create get middleware for the property', function (done) {
+        var model = mon.new(modelName, { prop : val });
+        model.save(function (error, result) {
+          expect(error).to.equal(null);
+          expect(findValue(result, 'prop')).to.equal(val + addition);
+          done();
+        });
+      });
+    });
+
+    //
+    // Get
+    //
+    describe('On Set', function () {
+      var val       = 'foo';
+      var addition  = '-test';
+      var modelName = 'setModel';
+
+      function setTest (value) { return value ? value + addition : value; }
+
+      mon.register(modelName, {
+        prop : mon().string().onSet(setTest).fin()
+      });
+
+      it('should create set middleware for the property', function (done) {
+        var model = mon.new(modelName, { prop : val });
+        model.save(function (error, result) {
+          expect(error).to.equal(null);
+          expect(findValue(result, 'prop')).to.equal(val + addition);
+          done();
+        });
+      });
+    });
+
+    describe('Date Middleware', function () {
+
+      //
+      // Expires
+      //
+      describe('Expires', function () {
+        it('should create expiration time for the property', function (done) {
+          var dateTime  = 1;
+          var prop      = mon().date().expires(dateTime).fin();
+
+          expect(prop.expires).to.equal(dateTime);
+          done();
+        });
+      });
+    });
+
+    describe('String Middleware', function () {
+
+      //
+      // toUppercase
+      //
+      describe('To Uppercase', function () {
+        var val       = 'foo';
+        var modelName = 'uppercaseModel';
+
+        mon.register(modelName, {
+          prop : mon().string().toUppercase().fin()
+        });
+
+        it('should tranform to uppercase', function (done) {
+          var model = mon.new(modelName, { prop : val });
+          model.save(function (error, result) {
+            expect(error).to.equal(null);
+            expect(findValue(result, 'prop')).to.equal(val.toUpperCase());
+            done();
+          });
+        });
+      });
+
+
+      //
+      // toLowercase
+      //
+      describe('To Lowercase', function () {
+        var val       = 'foo';
+        var modelName = 'lowercaseModel';
+
+        mon.register(modelName, {
+          prop : mon().string().toLowercase().fin()
+        });
+
+        it('should transform to lowercase', function (done) {
+          var model = mon.new(modelName, { prop : val });
+          model.save(function (error, result) {
+            expect(error).to.equal(null);
+            expect(findValue(result, 'prop')).to.equal(val.toLowerCase());
+            done();
+          });
+        });
+      });
+
+
+      //
+      // trim
+      //
+      describe('Trim', function () {
+        var val       = ' foo ';
+        var modelName = 'trimModel';
+
+        mon.register(modelName, {
+          prop : mon().string().trim().fin()
+        });
+
+        it('should trim value', function (done) {
+          var model = mon.new(modelName, { prop : val });
+          model.save(function (error, result) {
+            expect(error).to.equal(null);
+            expect(findValue(result, 'prop')).to.equal(val.trim());
+            done();
+          });
+        });
+      });
+    });
+  });
+
+
+
+
+  //////////////////////////////////////////////////////////////////////////
   //
   // Shared attributes
   //
+  //////////////////////////////////////////////////////////////////////////
 
 
   describe('Shared Attributes', function () {
@@ -640,9 +787,11 @@ describe('Property Builder', function () {
   }); // END - string
 
 
+  //////////////////////////////////////////////////////////////////////////
   //
   // Number attributes
   //
+  //////////////////////////////////////////////////////////////////////////
 
 
   describe('Number Attributes', function () {
