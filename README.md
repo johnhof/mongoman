@@ -21,6 +21,7 @@ A node utility to simplify schema and model management. Most utility is wrapped 
         - [`prop.mixed()`](#propmixed)
         - [`prop.objectId()`](#propobjectid)
         - [`prop.array()`](#proparray)
+        - [`prop.schema()`](#propschema)
     - [Middleware](#middleware)
         - [Shared](#shared)
             - [`prop.onGet(function)`](#propongetfunction)
@@ -263,7 +264,16 @@ Set property type to be `Array`
   schema.newProp = mon().array().fin();
 ```
 
+### `prop.schema(ref, type)`
 
+Set property type to be a reference to another schema
+
+```ref```  -- Required - name of referred schema
+```type``` -- Optional - Defaults ```ObjectId```, possible values (```Number```, ```String```, ```Buffer```)
+
+```javascript
+  schema.newProp = mon().schema('schemaName').fin();
+```
 
 
 
