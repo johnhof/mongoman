@@ -31,6 +31,29 @@ describe('Property Builder', function () {
     done();
   });
 
+ describe('Schema Property', function () {
+  mon.register('person', {
+    name : mon().string().fin()
+  });
+  mon.register('book', {
+    title : mon().string().fin(),
+    author : mon().schema('person').fin()
+  });
+
+
+  it('should be able to populate a Schema defined inside a Schema', function (done) {
+    var person = mon.new('person', {name : 'Duane'});
+    person.save(function (error, person) {
+      expect(error).to.equal(null);
+      var book = mon.new('book', {title : 'Test Book', author : person['_id']});
+      book.save(function (error, book) {
+          expect(error).to.equal(null);
+          done();
+      });
+    });
+  });
+ });
+
 
   //////////////////////////////////////////////////////////////////////////
   //
