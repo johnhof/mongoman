@@ -21,7 +21,7 @@ A node utility to simplify schema and model management. Most utility is wrapped 
         - [`prop.mixed()`](#propmixed)
         - [`prop.objectId()`](#propobjectid)
         - [`prop.array()`](#proparray)
-        - [`prop.schema()`](#propschema)
+        - [`prop.schema()`](#propschemaref-type)
     - [Middleware](#middleware)
         - [Shared](#shared)
             - [`prop.onGet(function)`](#propongetfunction)
