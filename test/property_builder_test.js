@@ -476,6 +476,20 @@ describe('Property Builder', function () {
         });
       });
     }); // END - Length
+
+
+    //
+    // Ref
+    //
+    describe('Ref', function () {
+      var model  = 'FooModel';
+
+      // pass
+      it('should create a ref to a model', function (done) {
+        expect(mon().objectId().ref(model).fin().ref).to.equal(model);
+        done();
+      });
+    });// END - enum
   }); // END - Shared attributes
 
 
