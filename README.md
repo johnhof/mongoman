@@ -39,6 +39,7 @@ A node utility to simplify schema and model management. Most utility is wrapped 
             - [`prop.select([value])`](#propselectvalue)
             - [`prop.enum(values, [message])`](#propenumvalues-message)
             - [`prop.unique([bool])`](#propuniquebool)
+            - [`prop.ref(model)`](#proprefmodel)
             - [`prop.min(value, [message])`](#propminvalue-message)
             - [`prop.max(value, [message])`](#propmaxvalue-message)
             - [`prop.length(value)`](#proplengthvalue-message)
@@ -433,6 +434,16 @@ Insures a unique index is generated for the property. defaults to true. False ca
 
 ```javascript
   schema.newProp = mon().unique().fin();
+```
+
+### `prop.ref(model)`
+
+type: any
+
+Creates a reference to another model. This is used to populate data from another document
+
+```javascript
+  schema.newProp = mon().objectId().ref('fooModel').fin();
 ```
 
 ### `prop.min(value, [message])`
