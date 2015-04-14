@@ -276,8 +276,10 @@ Set property type to be a reference to another schema
   schema.newProp = mon().schema('schemaName').fin();
 ```
 
-
-
+In order to create an array of schemas (enabling populate over numerous objects) follow this pattern:
+```javascript
+   .array({ type : Mon.mongoose.Schema.Types.ObjectId, ref : 'name_of_schema'})
+```
 
 
 
